@@ -1,0 +1,16 @@
+export const ROUTES = {
+  HOME: "Home",
+  STACK: "Stack",
+  BOTTOM_NAV: "BottomNavigator",
+  WELCOME: "Welcome",
+  ONBOARDING: "Onboarding",
+  SPLASH: "Splash",
+  LOGIN: "Login",
+  REGISTER: "Register",
+  FORGET_PASSWORD: "ForgetPass",
+  PRODUCTS: "Products",
+  PRODUCT_DETAIlS: "ProductDetails",
+  CART: "Cart",
+  CHECKOUT: "Checkout",
+  ORDER_DETAILS: "OrderDetails",
+};
