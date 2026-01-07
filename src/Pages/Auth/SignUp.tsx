@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
-import { loginSchema, LoginSchemaType } from "../../Utilis/Schema/loginSchema";
-import { loginThunk } from "../../Redux/Slices/authSlice";
+import { signupThunk } from "../../Redux/Slices/authSlice";
 import CustomInput from "./../../Shared/CustomInput";
 import CustomButton from "./../../Shared/CustomButton";
 import { useTheme } from "../../Contexts/ThemeContext";
@@ -18,29 +17,39 @@ import { LoginStyles } from "../../Styles/LoginStyles";
 import { ROUTES } from "../../Constants/routes";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import {
+  signUpSchema,
+  SignUpSchemaType,
+} from "../../Utilis/Schema/signupSchema";
+import GenderRadio from "../../Shared/GenderRadio";
 
-const Login = () => {
+const SignUp = () => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((s) => s.auth);
   const { colors } = useTheme();
   const navigation: any = useNavigation();
 
-  const { control, handleSubmit } = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema),
+  const { control, handleSubmit, setValue } = useForm<SignUpSchemaType>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
+      userName: "",
       email: "",
+      recoveryEmail: "",
       password: "",
+      Cpassword: "",
+      mobileNumber: "",
+      gender: undefined,
     },
   });
 
-  const onSubmit = async (data: LoginSchemaType) => {
+  const onSubmit = async (data: SignUpSchemaType) => {
     try {
-      await dispatch(loginThunk(data)).unwrap();
-      navigation.replace(ROUTES.HOME);
+      await dispatch(signupThunk(data)).unwrap();
+      navigation.replace(ROUTES.LOGIN);
     } catch (error: any) {
       Toast.show({
         type: "error",
-        text1: "Login Failed",
+        text1: "Sign UP Failed",
         text2: error || "Something went wrong",
       });
     }
@@ -68,16 +77,31 @@ const Login = () => {
             Welcome
           </Text>
           <Text style={[LoginStyles.subWelcomeText, { color: colors.subText }]}>
-            Sign in to continue shopping
+            Sign Up to continue shopping
           </Text>
         </View>
 
         <View style={LoginStyles.formContainer}>
           <CustomInput
+            name="userName"
+            control={control}
+            placeholder="Full Name"
+            icon="person-outline"
+          />
+
+          <CustomInput
             name="email"
             control={control}
             placeholder="Email"
             icon="mail-outline"
+            keyboardType="email-address"
+          />
+
+          <CustomInput
+            name="recoveryEmail"
+            control={control}
+            placeholder="Recovery Email"
+            icon="mail-open-outline"
             keyboardType="email-address"
           />
 
@@ -89,45 +113,51 @@ const Login = () => {
             icon="lock-closed-outline"
           />
 
-          <TouchableOpacity style={LoginStyles.forgotPassword}>
-            <Text
-              style={[
-                LoginStyles.forgotPasswordText,
-                { color: colors.primary },
-              ]}
-            >
-              Forgot Password?
-            </Text>
-          </TouchableOpacity>
+          <CustomInput
+            name="Cpassword"
+            control={control}
+            placeholder="Confirm Password"
+            secureTextEntry
+            icon="lock-closed-outline"
+          />
+
+          <CustomInput
+            name="mobileNumber"
+            control={control}
+            placeholder="Mobile Number"
+            keyboardType="phone-pad"
+            icon="call-outline"
+          />
+
+          <Controller
+            control={control}
+            name="gender"
+            render={({ field: { value, onChange } }) => (
+              <GenderRadio value={value} onChange={onChange} />
+            )}
+          />
 
           <CustomButton
-            title="Sign In"
+            title="Sign Up"
             loading={isLoading}
             onPress={handleSubmit(onSubmit)}
           />
-
           <View style={LoginStyles.footerContainer}>
             <Text style={[LoginStyles.footerText, { color: colors.subText }]}>
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <TouchableOpacity
-                onPress={() => navigation.navigate(ROUTES.REGISTER)}
+                onPress={() => navigation.navigate(ROUTES.LOGIN)}
               >
                 <Text style={{ color: colors.primary, fontWeight: "bold" }}>
-                  Sign Up
+                  Sign In
                 </Text>
               </TouchableOpacity>
             </Text>
           </View>
-
-          <CustomButton
-            title="Continue as Guest"
-            variant="outline"
-            onPress={() => navigation.replace(ROUTES.HOME)}
-          />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default SignUp;

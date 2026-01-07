@@ -41,6 +41,7 @@ export interface IAuthSlice {
   status: string;
   isLoading: boolean;
   isError: boolean;
+  errorMessage: string;
 }
 
 export interface IUpdateUser {

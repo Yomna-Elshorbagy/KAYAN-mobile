@@ -16,6 +16,7 @@ import Checkout from "../Pages/CheckOut/Checkout";
 import OrderDetails from "../Pages/OrderDetails/OrderDetails";
 import Home from "../Pages/Home/Home";
 import { setToken } from "../Redux/Slices/authSlice";
+import SignUp from "../Pages/Auth/SignUp";
 
 const queryClient = new QueryClient();
 
@@ -61,17 +62,23 @@ const Router = () => {
         <QueryClientProvider client={queryClient}>
           <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <>
-                <Stack.Screen name={ROUTES.LOGIN} component={Login} />
-                <Stack.Screen name={ROUTES.CART} component={Cart} />
-                <Stack.Screen name={ROUTES.PRODUCTS} component={Products} />
-                <Stack.Screen name={ROUTES.CHECKOUT} component={Checkout} />
-                <Stack.Screen
-                  name={ROUTES.ORDER_DETAILS}
-                  component={OrderDetails}
-                />
-                <Stack.Screen name={ROUTES.HOME} component={Home} />
-              </>
+              {!user ? (
+                <>
+                  <Stack.Screen name={ROUTES.LOGIN} component={Login} />
+                  <Stack.Screen name={ROUTES.REGISTER} component={SignUp} />
+                </>
+              ) : (
+                <>
+                  <Stack.Screen name={ROUTES.HOME} component={Home} />
+                  <Stack.Screen name={ROUTES.PRODUCTS} component={Products} />
+                  <Stack.Screen name={ROUTES.CART} component={Cart} />
+                  <Stack.Screen name={ROUTES.CHECKOUT} component={Checkout} />
+                  <Stack.Screen
+                    name={ROUTES.ORDER_DETAILS}
+                    component={OrderDetails}
+                  />
+                </>
+              )}
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>

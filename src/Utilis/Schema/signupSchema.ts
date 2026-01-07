@@ -8,6 +8,7 @@ export const signUpSchema = zod
       .min(3, "Please Enter your fullname")
       .max(15, "max length is 15"),
     email: zod.email("Please Enter a correct email"),
+    recoveryEmail: zod.email("Please Enter a correct email"),
     password: zod
       .string()
       .min(6, "Your password should be 6 characters")
