@@ -17,6 +17,7 @@ import OrderDetails from "../Pages/OrderDetails/OrderDetails";
 import Home from "../Pages/Home/Home";
 import { setToken } from "../Redux/Slices/authSlice";
 import SignUp from "../Pages/Auth/SignUp";
+import BottomTabs from "./BottomTabs";
 
 const queryClient = new QueryClient();
 
@@ -69,6 +70,12 @@ const Router = () => {
                 </>
               ) : (
                 <>
+                {/* to apply navigation bar at the bottom of all pages */}
+                  <Stack.Screen
+                    name={ROUTES.BOTTOM_NAV}
+                    component={BottomTabs}
+                    options={{ headerShown: false }}
+                  />
                   <Stack.Screen name={ROUTES.HOME} component={Home} />
                   <Stack.Screen name={ROUTES.PRODUCTS} component={Products} />
                   <Stack.Screen name={ROUTES.CART} component={Cart} />

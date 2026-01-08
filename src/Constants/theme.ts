@@ -9,6 +9,23 @@ const palette = {
   greyDark: "#333333",
   backgroundLight: "#faf7f2",
   backgroundDark: "#1a1a1a",
+
+  sage50: "#f5f5f0",
+  sage100: "#f5efe6",
+  sage200: "#f6f5f2",
+  sage300: "#e8eae6",
+  sage400: "#dad7cd",
+  sage500: "#a3b18a",
+  sage600: "#588157",
+  sage700: "#3a5a40",
+  sage800: "#344e41",
+  sage900: "#568f87",
+
+  mist100: "#dde5b6",
+  mist200: "#f0ead2",
+  mist300: "#cfe1b9",
+  mist400: "#b6cc9b",
+  mist500: "#9eb489",
 };
 
 export const Colors = {
@@ -21,7 +38,28 @@ export const Colors = {
     inputBorder: "#E8E8E8",
     placeholder: "#A0A0A0",
     buttonText: palette.white,
-    mode: 'light' as const,
+    card: palette.white,
+    tab: palette.white,
+    mode: "light" as const,
+    sage: {
+      50: palette.sage50,
+      100: palette.sage100,
+      200: palette.sage200,
+      300: palette.sage300,
+      400: palette.sage400,
+      500: palette.sage500,
+      600: palette.sage600,
+      700: palette.sage700,
+      800: palette.sage800,
+      900: palette.sage900,
+    },
+    mist: {
+      100: palette.mist100,
+      200: palette.mist200,
+      300: palette.mist300,
+      400: palette.mist400,
+      500: palette.mist500,
+    },
   },
   dark: {
     background: palette.backgroundDark,
@@ -32,9 +70,30 @@ export const Colors = {
     inputBorder: "#3E3E3E",
     placeholder: "#707070",
     buttonText: palette.white,
-    mode: 'dark' as const,
+    card: "#222222",
+    tab: "#1a1a1a",
+    mode: "dark" as const,
+    sage: {
+      50: palette.sage900,
+      100: palette.sage800,
+      200: palette.sage700,
+      300: palette.sage600,
+      400: palette.sage500,
+      500: palette.sage400,
+      600: palette.sage300,
+      700: palette.sage200,
+      800: palette.sage100,
+      900: palette.sage50,
+    },
+    mist: {
+      100: palette.mist500,
+      200: palette.mist400,
+      300: palette.mist300,
+      400: palette.mist200,
+      500: palette.mist100,
+    },
   },
 };
 
-export type ThemeMode = 'light' | 'dark';
-export type ThemeColors = typeof Colors.light | typeof Colors.dark;
+export type ThemeMode = "light" | "dark";
+export type ThemeColors = typeof Colors.light;

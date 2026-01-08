@@ -11,6 +11,7 @@ export const ROUTES = {
   PRODUCTS: "Products",
   PRODUCT_DETAIlS: "ProductDetails",
   CART: "Cart",
+  WISHLIST: "Wishlist",
   CHECKOUT: "Checkout",
   ORDER_DETAILS: "OrderDetails",
 };

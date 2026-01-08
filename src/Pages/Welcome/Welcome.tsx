@@ -1,8 +1,10 @@
-import React from 'react'
-import { View } from 'react-native'
+import React from "react";
+import { Text, View } from "react-native";
 
 export default function Welcome() {
   return (
-    <View>Welcome</View>
-  )
+    <View>
+      <Text>Welcome</Text>
+    </View>
+  );
 }
