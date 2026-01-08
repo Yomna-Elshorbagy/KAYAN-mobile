@@ -1,1 +1,14 @@
-{}
+{
+  "stats": {
+    "uniqueDesigns": "UNIQUE DESIGNS",
+    "happyClients": "HAPPY CLIENTS",
+    "yearsOfExcellence": "YEARS OF EXCELLENCE"
+  },
+  "craftsmanship": {
+    "title": "Unparalleled Craftsmanship",
+    "description": "Each piece in our collection is meticulously handcrafted by master artisans, blending time-honored traditions with contemporary design."
+  },
+  "splash": {
+    "title": "KAYAN"
+  }
+}

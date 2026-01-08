@@ -18,6 +18,7 @@ import { LoginStyles } from "../../Styles/LoginStyles";
 import { ROUTES } from "../../Constants/routes";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const Login = () => {
   const onSubmit = async (data: LoginSchemaType) => {
     try {
       await dispatch(loginThunk(data)).unwrap();
+      await AsyncStorage.setItem("isFirstLaunch", "false");
       navigation.replace(ROUTES.HOME);
     } catch (error: any) {
       Toast.show({
@@ -122,7 +124,10 @@ const Login = () => {
           <CustomButton
             title="Continue as Guest"
             variant="outline"
-            onPress={() => navigation.replace(ROUTES.HOME)}
+            onPress={async () => {
+              await AsyncStorage.setItem("isFirstLaunch", "false");
+              navigation.replace(ROUTES.HOME);
+            }}
           />
         </View>
       </ScrollView>

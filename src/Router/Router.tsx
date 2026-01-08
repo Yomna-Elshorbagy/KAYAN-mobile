@@ -18,6 +18,8 @@ import Home from "../Pages/Home/Home";
 import { setToken } from "../Redux/Slices/authSlice";
 import SignUp from "../Pages/Auth/SignUp";
 import BottomTabs from "./BottomTabs";
+import Splash from "../Pages/Splash/Splash";
+import Onboarding from "../Pages/Onboarding/Onboarding";
 
 const queryClient = new QueryClient();
 
@@ -33,18 +35,6 @@ const Router = () => {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const loadToken = async () => {
-      const stored = await AsyncStorage.getItem("accessToken");
-      if (stored) {
-        dispatch(setToken(stored));
-      }
-      setIsLoading(false);
-    };
-
-    loadToken();
   }, []);
 
   if (isLoading) {
@@ -65,12 +55,17 @@ const Router = () => {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
               {!user ? (
                 <>
+                  <Stack.Screen name={ROUTES.SPLASH} component={Splash} />
+                  <Stack.Screen
+                    name={ROUTES.ONBOARDING}
+                    component={Onboarding}
+                  />
                   <Stack.Screen name={ROUTES.LOGIN} component={Login} />
                   <Stack.Screen name={ROUTES.REGISTER} component={SignUp} />
                 </>
               ) : (
                 <>
-                {/* to apply navigation bar at the bottom of all pages */}
+                  {/* to apply navigation bar at the bottom of all pages */}
                   <Stack.Screen
                     name={ROUTES.BOTTOM_NAV}
                     component={BottomTabs}

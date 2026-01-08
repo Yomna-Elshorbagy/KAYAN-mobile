@@ -17,6 +17,7 @@ import { LoginStyles } from "../../Styles/LoginStyles";
 import { ROUTES } from "../../Constants/routes";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   signUpSchema,
   SignUpSchemaType,
@@ -45,6 +46,7 @@ const SignUp = () => {
   const onSubmit = async (data: SignUpSchemaType) => {
     try {
       await dispatch(signupThunk(data)).unwrap();
+      await AsyncStorage.setItem("isFirstLaunch", "false");
       navigation.replace(ROUTES.LOGIN);
     } catch (error: any) {
       Toast.show({
