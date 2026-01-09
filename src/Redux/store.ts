@@ -7,10 +7,12 @@ import {
 } from "react-redux";
 
 import authSlice from "./Slices/authSlice";
+import productsSlice from "./Slices/productsSlice";
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
+    products: productsSlice,
   },
 });
 
