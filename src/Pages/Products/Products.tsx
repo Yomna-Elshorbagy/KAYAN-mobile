@@ -8,6 +8,10 @@ import CustomInput from "../../Shared/CustomInput";
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
 import { fetchProducts } from "../../Redux/Slices/products.thunks";
 import { styles } from "../../Styles/ProductStyles";
+import {
+  addWishlistItem,
+  removeWishlistItem,
+} from "../../Redux/Slices/wishlistSlice";
 
 export default function Products() {
   const { colors } = useTheme();
@@ -50,6 +54,19 @@ export default function Products() {
     );
   }, [reduxProducts, debouncedSearch]);
 
+  // ===> handle add to wishlist
+  const wishlist = useAppSelector((state) => state.wishlist.items);
+
+  const isProductWishlisted = (productId: string) =>
+    wishlist.some((item) => item._id === productId);
+  const handleToggleWishlist = (productId: string) => {
+    if (isProductWishlisted(productId)) {
+      dispatch(removeWishlistItem(productId));
+    } else {
+      dispatch(addWishlistItem(productId));
+    }
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <SharedHeader title="Products" />
@@ -82,18 +99,20 @@ export default function Products() {
       ) : (
         <View style={{ flex: 1 }}>
           <FlatList
+            key={filteredProducts.length === 1 ? "one-column" : "two-columns"}
             data={filteredProducts}
-            numColumns={2}
+            numColumns={filteredProducts.length === 1 ? 1 : 2}
             keyExtractor={(item) => item._id}
-            columnWrapperStyle={styles.row}
+            columnWrapperStyle={filteredProducts.length > 1 ? styles.row : null}
             contentContainerStyle={styles.list}
             renderItem={({ item }) => (
               <View style={styles.cardContainer}>
                 <ProductCard
                   product={item}
+                  isWishlisted={isProductWishlisted(item._id)}
                   onPress={() => console.log("Go to details")}
                   onAddToCart={() => console.log("Add to cart")}
-                  onToggleWishlist={() => console.log("Wishlist")}
+                  onToggleWishlist={() => handleToggleWishlist(item._id)}
                 />
               </View>
             )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Animated, Text, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -9,12 +9,29 @@ import Cart from "../Pages/Cart/Cart";
 import Profile from "../Pages/Profile/Profile";
 import TabIcon from "../Shared/TabIcon";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import { useAppDispatch, useAppSelector } from "../Redux/store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { fetchWishlist } from "../Redux/Slices/wishlistSlice";
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   const { colors } = useTheme();
+  const wishlistCount = useAppSelector(
+    (state) => state.wishlist.items?.length || 0
+  );
+const dispatch = useAppDispatch();
+  useEffect(() => {
+    const initWishlist = async () => {
+      const token = await AsyncStorage.getItem("accessToken");
+      if (token) {
+        dispatch(fetchWishlist());
+      }
+    };
 
+    initWishlist();
+  }, []);
+  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -83,7 +100,18 @@ const BottomTabs = () => {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Shop" component={Products} />
-      <Tab.Screen name="Wishlist" component={Wishlist} />
+      <Tab.Screen
+        name="Wishlist"
+        component={Wishlist}
+        options={{
+          tabBarBadge: wishlistCount > 0 ? wishlistCount : undefined,
+          tabBarBadgeStyle: {
+            backgroundColor: "#E63946",
+            color: "white",
+            fontSize: 10,
+          },
+        }}
+      />
       <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

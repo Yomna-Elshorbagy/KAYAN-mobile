@@ -1,18 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import {
-  TypedUseSelectorHook,
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import authSlice from "./Slices/authSlice";
 import productsSlice from "./Slices/productsSlice";
+import wishlistSlice from './Slices/wishlistSlice';
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
     products: productsSlice,
+    wishlist: wishlistSlice,
   },
 });
 

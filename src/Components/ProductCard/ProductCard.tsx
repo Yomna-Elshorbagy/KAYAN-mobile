@@ -3,6 +3,11 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Heart, ShoppingCart, Star } from "lucide-react-native";
 import { getCardStyles } from "../../Styles/CardStyles";
 import { useTheme } from "../../Contexts/ThemeContext";
+import { useAppDispatch, useAppSelector } from "../../Redux/store";
+import {
+  addWishlistItem,
+  removeWishlistItem,
+} from "../../Redux/Slices/wishlistSlice";
 
 interface ProductCardProps {
   product: {
