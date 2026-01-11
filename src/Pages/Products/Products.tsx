@@ -12,6 +12,7 @@ import {
   addWishlistItem,
   removeWishlistItem,
 } from "../../Redux/Slices/wishlistSlice";
+import { addCartItem } from "../../Redux/Slices/cartSlice";
 
 export default function Products() {
   const { colors } = useTheme();
@@ -67,6 +68,10 @@ export default function Products() {
     }
   };
 
+  const handleAddToCart = (productId: string) => {
+    dispatch(addCartItem({ productId }));
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <SharedHeader title="Products" />
@@ -111,7 +116,7 @@ export default function Products() {
                   product={item}
                   isWishlisted={isProductWishlisted(item._id)}
                   onPress={() => console.log("Go to details")}
-                  onAddToCart={() => console.log("Add to cart")}
+                  onAddToCart={() => handleAddToCart(item._id)}
                   onToggleWishlist={() => handleToggleWishlist(item._id)}
                 />
               </View>

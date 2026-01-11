@@ -7,6 +7,7 @@ import {
   removeWishlistItem,
   clearWishlistItems,
 } from "../../Redux/Slices/wishlistSlice";
+import { addCartItem } from "../../Redux/Slices/cartSlice";
 import WishlistCard from "../../Components/WishlistCard/WishlistCard";
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
@@ -20,6 +21,11 @@ const Wishlist = () => {
   useEffect(() => {
     dispatch(fetchWishlist());
   }, []);
+
+  const handleMoveToCart = (productId: string) => {
+    dispatch(addCartItem({ productId }));
+    dispatch(removeWishlistItem(productId));
+  };
 
   return (
     <View
@@ -56,10 +62,7 @@ const Wishlist = () => {
             <WishlistCard
               product={item}
               onRemove={() => dispatch(removeWishlistItem(item._id))}
-              onMoveToCart={() => {
-                // dispatch(addToCart(item))
-                // dispatch(removeWishlistItem(item._id));
-              }}
+              onMoveToCart={() => handleMoveToCart(item._id)}
             />
           </View>
         )}
