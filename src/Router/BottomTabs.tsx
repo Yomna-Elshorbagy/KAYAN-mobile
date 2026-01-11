@@ -12,6 +12,7 @@ import Wishlist from "../Pages/Wishlist/Wishlist";
 import { useAppDispatch, useAppSelector } from "../Redux/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchWishlist } from "../Redux/Slices/wishlistSlice";
+import { fetchCart } from "../Redux/Slices/cartSlice";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,18 +21,20 @@ const BottomTabs = () => {
   const wishlistCount = useAppSelector(
     (state) => state.wishlist.items?.length || 0
   );
-const dispatch = useAppDispatch();
+  const cartCount = useAppSelector((state) => state.cart?.noOfCartItems || 0);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    const initWishlist = async () => {
+    const initWishlistAndCart = async () => {
       const token = await AsyncStorage.getItem("accessToken");
       if (token) {
         dispatch(fetchWishlist());
+        dispatch(fetchCart());
       }
     };
 
-    initWishlist();
+    initWishlistAndCart();
   }, []);
-  
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -112,7 +115,18 @@ const dispatch = useAppDispatch();
           },
         }}
       />
-      <Tab.Screen name="Cart" component={Cart} />
+      <Tab.Screen
+        name="Cart"
+        component={Cart}
+        options={{
+          tabBarBadge: cartCount > 0 ? cartCount : undefined,
+          tabBarBadgeStyle: {
+            backgroundColor: "#E63946",
+            color: "white",
+            fontSize: 10,
+          },
+        }}
+      />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );

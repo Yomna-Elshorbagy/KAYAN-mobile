@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  StyleSheet,
   StatusBar,
   SafeAreaView,
   TouchableOpacity,
@@ -11,6 +10,8 @@ import {
 import { useTheme } from "../../Contexts/ThemeContext";
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
 import { Trash2 } from "lucide-react-native";
+import Toast from "react-native-toast-message";
+import { useTranslation } from "react-i18next";
 import {
   fetchCart,
   updateItemQuantity,
@@ -21,18 +22,49 @@ import CartItem from "../../Components/Cart/CartItem";
 import CartSummary from "../../Components/Cart/CartSummary";
 import EmptyCart from "../../Components/Cart/EmptyCart";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
+import { cartStyles } from "../../Styles/CartStyles";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Shop: undefined;
+  Home: undefined;
+  Cart: undefined;
+};
 
 const Cart = () => {
   const { colors, theme } = useTheme();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { cart, isLoading } = useAppSelector((state) => state.cart);
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     dispatch(fetchCart());
   }, [dispatch]);
 
   const handleContinueShopping = () => {
-    // Navigate home or products
+    navigation.navigate("Shop");
+  };
+
+  const handleRemoveItem = (item: any) => {
+    dispatch(removeCartItem(item.productId._id));
+    Toast.show({
+      type: "success",
+      text1: t("toasts.removed"),
+      text2: `${item.productId.title} ${t("cart.removedToast")}`,
+    });
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCartItems());
+    Toast.show({
+      type: "success",
+      text1: t("toasts.cleared"),
+      text2: t("cart.clearedToast"),
+    });
   };
 
   if (!cart || cart.products.length === 0) {
@@ -40,28 +72,32 @@ const Cart = () => {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <StatusBar barStyle={theme === "dark" ? "light-content" : "dark-content"} />
+    <SafeAreaView
+      style={[cartStyles.container, { backgroundColor: colors.background }]}
+    >
+      <StatusBar
+        barStyle={theme === "dark" ? "light-content" : "dark-content"}
+      />
 
-      <SharedHeader title="Shopping Bag" />
+      <SharedHeader title={t("cart.bagTitle")} />
 
-      <View style={styles.content}>
-        <View style={styles.headerInfo}>
+      <View style={cartStyles.content}>
+        <View style={cartStyles.headerInfo}>
           <View style={{ flex: 1 }}>
-            <Text style={[styles.title, { color: colors.text }]}>
-              My Cart
+            <Text style={[cartStyles.title, { color: colors.text }]}>
+              {t("cart.myCart")}
             </Text>
-            <Text style={[styles.itemCount, { color: colors.primary }]}>
-              ({cart.products.length} Items)
+            <Text style={[cartStyles.itemCount, { color: colors.primary }]}>
+              ({cart.products.length} {t("cart.items")})
             </Text>
           </View>
 
           <TouchableOpacity
-            onPress={() => dispatch(clearCartItems())}
-            style={[styles.clearBtn, { backgroundColor: colors.card }]}
+            onPress={handleClearCart}
+            style={[cartStyles.clearBtn, { backgroundColor: colors.card }]}
           >
             <Trash2 size={20} color="#FF4D4D" />
-            <Text style={styles.clearText}>Clear All</Text>
+            <Text style={cartStyles.clearText}>{t("cart.clearAll")}</Text>
           </TouchableOpacity>
         </View>
 
@@ -69,7 +105,7 @@ const Cart = () => {
           data={cart.products}
           keyExtractor={(item) => item.productId._id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={cartStyles.listContent}
           renderItem={({ item }) => (
             <CartItem
               item={item}
@@ -91,9 +127,7 @@ const Cart = () => {
                   );
                 }
               }}
-              onDelete={() =>
-                dispatch(removeCartItem(item.productId._id))
-              }
+              onDelete={() => handleRemoveItem(item)}
             />
           )}
         />
@@ -103,53 +137,5 @@ const Cart = () => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
-  headerInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginVertical: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "800",
-    fontFamily: "Outfit-Bold",
-  },
-  itemCount: {
-    fontSize: 16,
-    fontWeight: "600",
-    fontFamily: "Outfit-SemiBold",
-  },
-  clearBtn: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 12,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  clearText: {
-    color: "#FF4D4D",
-    marginLeft: 6,
-    fontSize: 14,
-    fontWeight: "700",
-    fontFamily: "Outfit-Bold",
-  },
-  listContent: {
-    paddingBottom: 20,
-  },
-});
 
 export default Cart;

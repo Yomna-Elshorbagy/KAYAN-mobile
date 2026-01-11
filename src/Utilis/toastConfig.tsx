@@ -7,7 +7,7 @@ export const toastConfig = {
       style={{
         width: "90%",
         alignSelf: "center",
-        backgroundColor: "#B78665",
+        backgroundColor: "#9f987fff",
         padding: 14,
         borderRadius: 18,
         flexDirection: "row",

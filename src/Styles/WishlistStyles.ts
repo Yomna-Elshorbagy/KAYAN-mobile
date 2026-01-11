@@ -64,6 +64,7 @@ export const wishlistStyles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: "700",
+    textAlign: "left",
   },
   list: {
     paddingHorizontal: 8,

@@ -5,7 +5,6 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "../Contexts/ThemeContext";
 import { ROUTES } from "../Constants/routes";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppDispatch, RootState } from "../Redux/store";
@@ -15,11 +14,11 @@ import Products from "../Pages/Products/Products";
 import Checkout from "../Pages/CheckOut/Checkout";
 import OrderDetails from "../Pages/OrderDetails/OrderDetails";
 import Home from "../Pages/Home/Home";
-import { setToken } from "../Redux/Slices/authSlice";
 import SignUp from "../Pages/Auth/SignUp";
 import BottomTabs from "./BottomTabs";
 import Splash from "../Pages/Splash/Splash";
 import Onboarding from "../Pages/Onboarding/Onboarding";
+import ProductDetails from "../Pages/ProductDetails/ProductDetails";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +72,7 @@ const Router = () => {
                   />
                   <Stack.Screen name={ROUTES.HOME} component={Home} />
                   <Stack.Screen name={ROUTES.PRODUCTS} component={Products} />
+                  <Stack.Screen name={ROUTES.PRODUCT_DETAIlS} component={ProductDetails} />
                   <Stack.Screen name={ROUTES.CART} component={Cart} />
                   <Stack.Screen name={ROUTES.CHECKOUT} component={Checkout} />
                   <Stack.Screen

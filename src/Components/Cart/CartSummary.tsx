@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../../Contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 import { cartSummaryStyles } from "../../Styles/CartStyles";
 
 interface CartSummaryProps {
@@ -9,9 +10,10 @@ interface CartSummaryProps {
 
 const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
-  const shipping = 0;
   const tax = subtotal * 0.05;
+  const shipping = 0; // Keeping it free for now
   const total = subtotal + tax + shipping;
 
   return (
@@ -21,9 +23,9 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
         { backgroundColor: colors.card, shadowColor: colors.text },
       ]}
     >
-      <SummaryRow label="Subtotal" value={`$${subtotal.toFixed(2)}`} />
-      <SummaryRow label="Estimated Tax (5%)" value={`$${tax.toFixed(2)}`} />
-      <SummaryRow label="Shipping" value="FREE" green />
+      <SummaryRow label={t("cart.subtotal")} value={`$${subtotal.toFixed(2)}`} />
+      <SummaryRow label={t("cart.tax")} value={`$${tax.toFixed(2)}`} />
+      <SummaryRow label={t("cart.shipping")} value={t("cart.free")} green />
 
       <View
         style={[
@@ -34,7 +36,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
 
       <View style={cartSummaryStyles.totalRow}>
         <Text style={[cartSummaryStyles.totalLabel, { color: colors.text }]}>
-          Total Amount
+          {t("cart.totalPrice")}
         </Text>
         <Text style={[cartSummaryStyles.totalValue, { color: colors.primary }]}>
           ${total.toFixed(2)}
@@ -51,7 +53,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
         <Text
           style={[cartSummaryStyles.checkoutText, { color: colors.buttonText }]}
         >
-          Proceed to Checkout
+          {t("cart.proceedToCheckout")}
         </Text>
       </TouchableOpacity>
     </View>

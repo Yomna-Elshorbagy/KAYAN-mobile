@@ -1,5 +1,56 @@
 import { StyleSheet } from "react-native";
 
+export const cartStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  headerInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+    paddingHorizontal: 16,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "800",
+    fontFamily: "Outfit-Bold",
+    textAlign: "left",
+  },
+  itemCount: {
+    fontSize: 16,
+    fontWeight: "600",
+    fontFamily: "Outfit-SemiBold",
+    textAlign: "left",
+  },
+  clearBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  clearText: {
+    color: "#FF4D4D",
+    marginLeft: 6,
+    fontSize: 14,
+    fontWeight: "700",
+    fontFamily: "Outfit-Bold",
+  },
+  listContent: {
+    paddingBottom: 20,
+  },
+});
+
 export const cartItemStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -134,13 +185,9 @@ export const cartSummaryStyles = StyleSheet.create({
   },
 });
 
-
 export const emptyCartStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 40,
   },
   iconContainer: {
     padding: 20,
@@ -185,5 +232,11 @@ export const emptyCartStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     fontFamily: "Outfit-Bold",
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 24,
   },
 });

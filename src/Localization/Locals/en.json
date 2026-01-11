@@ -10,5 +10,45 @@
   },
   "splash": {
     "title": "KAYAN"
+  },
+  "cart": {
+    "myCart": "My Cart",
+    "items": "Items",
+    "clearAll": "Clear All",
+    "totalPrice": "Total Amount",
+    "subtotal": "Subtotal",
+    "tax": "Estimated Tax (5%)",
+    "shipping": "Shipping",
+    "free": "FREE",
+    "proceedToCheckout": "Proceed to Checkout",
+    "emptyTitle": "Your bag is empty",
+    "emptySubtitle": "Looks like you haven't added anything yet.",
+    "startShopping": "Start Shopping",
+    "removedToast": "Item removed from your bag",
+    "clearedToast": "All items have been removed from your bag",
+    "bagTitle": "Shopping Bag"
+  },
+  "wishlist": {
+    "title": "Your Wishlist",
+    "header": "Wishlist",
+    "items": "items",
+    "removedToast": "Item removed from your wishlist",
+    "movedToBagToast": "Item successfully moved to bag"
+  },
+  "shop": {
+    "title": "Products",
+    "searchPlaceholder": "Search for elegant items...",
+    "noProductsFound": "No products found",
+    "addedToBagToast": "Item successfully added to bag",
+    "addedToWishlistToast": "Product added to wishlist",
+    "removedFromWishlistToast": "Product removed from wishlist"
+  },
+  "toasts": {
+    "success": "Success",
+    "error": "Error",
+    "removed": "Removed",
+    "added": "Added",
+    "cleared": "Cleared",
+    "moved": "Moved"
   }
 }

@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Trash2 } from "lucide-react-native";
+import Toast from "react-native-toast-message";
 import { useTheme } from "../../Contexts/ThemeContext";
+import { useTranslation } from "react-i18next";
 import {
   fetchWishlist,
   removeWishlistItem,
@@ -15,6 +17,7 @@ import { wishlistStyles } from "../../Styles/WishlistStyles";
 
 const Wishlist = () => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.wishlist);
 
@@ -22,9 +25,23 @@ const Wishlist = () => {
     dispatch(fetchWishlist());
   }, []);
 
-  const handleMoveToCart = (productId: string) => {
-    dispatch(addCartItem({ productId }));
-    dispatch(removeWishlistItem(productId));
+  const handleMoveToCart = (product: any) => {
+    dispatch(addCartItem({ productId: product._id }));
+    dispatch(removeWishlistItem(product._id));
+    Toast.show({
+      type: "success",
+      text1: t("toasts.moved"),
+      text2: `${product.title} ${t("wishlist.movedToBagToast")}`,
+    });
+  };
+
+  const handleRemoveItem = (product: any) => {
+    dispatch(removeWishlistItem(product._id));
+    Toast.show({
+      type: "success",
+      text1: t("toasts.removed"),
+      text2: `${product.title} ${t("wishlist.removedToast")}`,
+    });
   };
 
   return (
@@ -33,14 +50,16 @@ const Wishlist = () => {
     >
       {/* Header */}
       <View>
-        <SharedHeader title="Wishlist" />
+        <SharedHeader title={t("wishlist.header")} />
       </View>
       <View style={wishlistStyles.header}>
         <View>
           <Text style={[wishlistStyles.title, { color: colors.text }]}>
-            Your Wishlist
+            {t("wishlist.title")}
           </Text>
-          <Text style={{ color: colors.subText }}>{items.length} items</Text>
+          <Text style={{ color: colors.subText }}>
+            {items.length} {t("wishlist.items")}
+          </Text>
         </View>
 
         {items.length > 0 && (
@@ -61,8 +80,8 @@ const Wishlist = () => {
           <View style={wishlistStyles.cardContainer}>
             <WishlistCard
               product={item}
-              onRemove={() => dispatch(removeWishlistItem(item._id))}
-              onMoveToCart={() => handleMoveToCart(item._id)}
+              onRemove={() => handleRemoveItem(item)}
+              onMoveToCart={() => handleMoveToCart(item)}
             />
           </View>
         )}

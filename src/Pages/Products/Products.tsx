@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { View, FlatList, ActivityIndicator, Text } from "react-native";
+import {
+  View,
+  FlatList,
+  ActivityIndicator,
+  Text,
+} from "react-native";
 import { useForm } from "react-hook-form";
+import Toast from "react-native-toast-message";
+import { useTranslation } from "react-i18next";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { useTheme } from "../../Contexts/ThemeContext";
@@ -16,6 +23,7 @@ import { addCartItem } from "../../Redux/Slices/cartSlice";
 
 export default function Products() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const {
     products: reduxProducts,
@@ -60,27 +68,42 @@ export default function Products() {
 
   const isProductWishlisted = (productId: string) =>
     wishlist.some((item) => item._id === productId);
-  const handleToggleWishlist = (productId: string) => {
-    if (isProductWishlisted(productId)) {
-      dispatch(removeWishlistItem(productId));
+  const handleToggleWishlist = (product: any) => {
+    if (isProductWishlisted(product._id)) {
+      dispatch(removeWishlistItem(product._id));
+      Toast.show({
+        type: "success",
+        text1: t("toasts.removed"),
+        text2: `${product.title} ${t("shop.removedFromWishlistToast")}`,
+      });
     } else {
-      dispatch(addWishlistItem(productId));
+      dispatch(addWishlistItem(product._id));
+      Toast.show({
+        type: "success",
+        text1: t("toasts.added"),
+        text2: `${product.title} ${t("shop.addedToWishlistToast")}`,
+      });
     }
   };
 
-  const handleAddToCart = (productId: string) => {
-    dispatch(addCartItem({ productId }));
+  const handleAddToCart = (product: any) => {
+    dispatch(addCartItem({ productId: product._id }));
+    Toast.show({
+      type: "success",
+      text1: t("toasts.added"),
+      text2: `${product.title} ${t("shop.addedToBagToast")}`,
+    });
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <SharedHeader title="Products" />
+      <SharedHeader title={t("shop.title")} />
 
       <View style={styles.searchSection}>
         <CustomInput
           name="search"
           control={control}
-          placeholder="Search for elegant items..."
+          placeholder={t("shop.searchPlaceholder")}
           icon="search"
         />
       </View>
@@ -116,15 +139,17 @@ export default function Products() {
                   product={item}
                   isWishlisted={isProductWishlisted(item._id)}
                   onPress={() => console.log("Go to details")}
-                  onAddToCart={() => handleAddToCart(item._id)}
-                  onToggleWishlist={() => handleToggleWishlist(item._id)}
+                  onAddToCart={() => handleAddToCart(item)}
+                  onToggleWishlist={() => handleToggleWishlist(item)}
                 />
               </View>
             )}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
-                <Text style={{ color: colors.subText }}>No products found</Text>
+                <Text style={{ color: colors.subText }}>
+                  {t("shop.noProductsFound")}
+                </Text>
               </View>
             }
           />
