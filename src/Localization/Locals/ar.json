@@ -41,7 +41,8 @@
     "noProductsFound": "لم يتم العثور على منتجات",
     "addedToBagToast": "تمت إضافة المنتج بنجاح إلى الحقيبة",
     "addedToWishlistToast": "تمت إضافة المنتج إلى قائمة الأمنيات",
-    "removedFromWishlistToast": "تمت إزالة المنتج من قائمة الأمنيات"
+    "removedFromWishlistToast": "تمت إزالة المنتج من قائمة الأمنيات",
+    "productDetails": "تفاصيل المنتج"
   },
   "toasts": {
     "success": "تم بنجاح",

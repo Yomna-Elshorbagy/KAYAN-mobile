@@ -70,10 +70,10 @@ const Router = () => {
                     component={BottomTabs}
                     options={{ headerShown: false }}
                   />
-                  <Stack.Screen name={ROUTES.HOME} component={Home} />
-                  <Stack.Screen name={ROUTES.PRODUCTS} component={Products} />
-                  <Stack.Screen name={ROUTES.PRODUCT_DETAIlS} component={ProductDetails} />
-                  <Stack.Screen name={ROUTES.CART} component={Cart} />
+                  <Stack.Screen
+                    name={ROUTES.PRODUCT_DETAIlS}
+                    component={ProductDetails}
+                  />
                   <Stack.Screen name={ROUTES.CHECKOUT} component={Checkout} />
                   <Stack.Screen
                     name={ROUTES.ORDER_DETAILS}

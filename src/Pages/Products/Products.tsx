@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
-import {
-  View,
-  FlatList,
-  ActivityIndicator,
-  Text,
-} from "react-native";
+import { View, FlatList, ActivityIndicator, Text } from "react-native";
 import { useForm } from "react-hook-form";
 import Toast from "react-native-toast-message";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import { useTheme } from "../../Contexts/ThemeContext";
@@ -20,10 +16,12 @@ import {
   removeWishlistItem,
 } from "../../Redux/Slices/wishlistSlice";
 import { addCartItem } from "../../Redux/Slices/cartSlice";
+import { ROUTES } from "../../Constants/routes";
 
 export default function Products() {
   const { colors } = useTheme();
   const { t } = useTranslation();
+  const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
   const {
     products: reduxProducts,
@@ -138,7 +136,9 @@ export default function Products() {
                 <ProductCard
                   product={item}
                   isWishlisted={isProductWishlisted(item._id)}
-                  onPress={() => console.log("Go to details")}
+                  onPress={() =>
+                    navigation.navigate(ROUTES.PRODUCT_DETAIlS, { id: item._id })
+                  }
                   onAddToCart={() => handleAddToCart(item)}
                   onToggleWishlist={() => handleToggleWishlist(item)}
                 />

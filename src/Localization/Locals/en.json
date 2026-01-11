@@ -41,7 +41,8 @@
     "noProductsFound": "No products found",
     "addedToBagToast": "Item successfully added to bag",
     "addedToWishlistToast": "Product added to wishlist",
-    "removedFromWishlistToast": "Product removed from wishlist"
+    "removedFromWishlistToast": "Product removed from wishlist",
+    "productDetails": "Product Details"
   },
   "toasts": {
     "success": "Success",

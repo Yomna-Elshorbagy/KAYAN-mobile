@@ -5,6 +5,7 @@ import { useTheme } from "../../../Contexts/ThemeContext";
 import { LanguageToggleButton } from "../../../Components/LanguageToggler/LanguageToggler";
 import { HomeHeaderStyles } from "../../../Styles/Header";
 import { useNavigation } from "@react-navigation/native";
+import { ROUTES } from "../../../Constants/routes";
 
 const HomeHeader = () => {
   const { theme, toggleTheme, colors } = useTheme();
@@ -50,7 +51,11 @@ const HomeHeader = () => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate("Shop")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ROUTES.BOTTOM_NAV, { screen: ROUTES.PRODUCTS })
+          }
+        >
           <Ionicons name="bag-outline" size={22} color={colors.text} />
         </TouchableOpacity>
       </View>

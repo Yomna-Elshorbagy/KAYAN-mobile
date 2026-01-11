@@ -34,7 +34,7 @@ export default function Splash() {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: ROUTES.HOME }],
+            routes: [{ name: ROUTES.BOTTOM_NAV }],
           })
         );
         return;

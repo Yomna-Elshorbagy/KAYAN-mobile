@@ -4,8 +4,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import authSlice from "./Slices/authSlice";
 import productsSlice from "./Slices/productsSlice";
-import wishlistSlice from './Slices/wishlistSlice';
-import cartSlice from './Slices/cartSlice';
+import wishlistSlice from "./Slices/wishlistSlice";
+import cartSlice from "./Slices/cartSlice";
+import reviewsSlice from "./Slices/reviewsSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     products: productsSlice,
     wishlist: wishlistSlice,
     cart: cartSlice,
+    review: reviewsSlice,
   },
 });
 

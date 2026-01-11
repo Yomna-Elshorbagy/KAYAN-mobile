@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "../../Contexts/ThemeContext";
 import { HomeHeaderStyles } from "../../Styles/Header";
 import { LanguageToggleButton } from "../LanguageToggler/LanguageToggler";
+import { ROUTES } from "../../Constants/routes";
 
 interface SharedHeaderProps {
   title: string;
@@ -59,7 +60,11 @@ const SharedHeader: React.FC<SharedHeaderProps> = ({
         </TouchableOpacity>
 
         {showHomeIcon && (
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(ROUTES.BOTTOM_NAV, { screen: ROUTES.HOME })
+            }
+          >
             <Ionicons name="home-outline" size={22} color={colors.text} />
           </TouchableOpacity>
         )}

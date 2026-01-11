@@ -38,7 +38,7 @@ const Login = () => {
     try {
       await dispatch(loginThunk(data)).unwrap();
       await AsyncStorage.setItem("isFirstLaunch", "false");
-      navigation.replace(ROUTES.HOME);
+      navigation.replace(ROUTES.BOTTOM_NAV);
     } catch (error: any) {
       Toast.show({
         type: "error",
@@ -126,7 +126,7 @@ const Login = () => {
             variant="outline"
             onPress={async () => {
               await AsyncStorage.setItem("isFirstLaunch", "false");
-              navigation.replace(ROUTES.HOME);
+              navigation.replace(ROUTES.BOTTOM_NAV);
             }}
           />
         </View>

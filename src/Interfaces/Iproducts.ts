@@ -34,6 +34,7 @@ export interface IProduct {
   };
   updatedBy: string;
   Reviews: any[];
+  rate?: number;
   createdAt: string;
   updatedAt: string;
 }

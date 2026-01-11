@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "../Redux/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchWishlist } from "../Redux/Slices/wishlistSlice";
 import { fetchCart } from "../Redux/Slices/cartSlice";
+import { ROUTES } from "../Constants/routes";
 
 const Tab = createBottomTabNavigator();
 
@@ -50,16 +51,16 @@ const BottomTabs = () => {
           let iconName: any;
 
           switch (route.name) {
-            case "Home":
+            case ROUTES.HOME:
               iconName = focused ? "home" : "home-outline";
               break;
-            case "Shop":
+            case ROUTES.PRODUCTS:
               iconName = focused ? "search" : "search-outline";
               break;
-            case "Wishlist":
+            case ROUTES.WISHLIST:
               iconName = focused ? "heart" : "heart-outline";
               break;
-            case "Cart":
+            case ROUTES.CART:
               iconName = focused ? "bag" : "bag-outline";
               break;
             case "Profile":
@@ -101,10 +102,14 @@ const BottomTabs = () => {
         ),
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Shop" component={Products} />
+      <Tab.Screen name={ROUTES.HOME} component={Home} />
       <Tab.Screen
-        name="Wishlist"
+        name={ROUTES.PRODUCTS}
+        component={Products}
+        options={{ tabBarLabel: "Shop" }}
+      />
+      <Tab.Screen
+        name={ROUTES.WISHLIST}
         component={Wishlist}
         options={{
           tabBarBadge: wishlistCount > 0 ? wishlistCount : undefined,
@@ -116,7 +121,7 @@ const BottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
+        name={ROUTES.CART}
         component={Cart}
         options={{
           tabBarBadge: cartCount > 0 ? cartCount : undefined,
