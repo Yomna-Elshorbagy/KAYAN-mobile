@@ -96,7 +96,7 @@ const ProductDetails = () => {
 
   const discountedPrice = selectedProduct.discount
     ? selectedProduct.price -
-    (selectedProduct.price * selectedProduct.discount) / 100
+      (selectedProduct.price * selectedProduct.discount) / 100
     : selectedProduct.price;
 
   const renderTabContent = () => {
@@ -204,9 +204,27 @@ const ProductDetails = () => {
 
           {/* Stock Status */}
           <View style={styles.stockStatus}>
-            <View style={styles.stockDot} />
-            <Text style={styles.stockText}>
-              {selectedProduct.stock > 0 ? "In Stock" : "Out of Stock"}
+            <View
+              style={[
+                styles.stockDot,
+                {
+                  backgroundColor:
+                    selectedProduct.stock > 0 ? "#4CAF50" : "#E63946",
+                },
+              ]}
+            />
+            <Text
+              style={[
+                styles.stockText,
+                {
+                  color: selectedProduct.stock > 0 ? "#4CAF50" : "#E63946",
+                  fontWeight: "bold",
+                },
+              ]}
+            >
+              {selectedProduct.stock > 0
+                ? `${selectedProduct.stock} items left in stock`
+                : "Currently Out of Stock"}
             </Text>
           </View>
 
@@ -285,8 +303,22 @@ const ProductDetails = () => {
             fill={isWishlisted ? "#E63946" : "transparent"}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addToCartBtn} onPress={handleAddToCart}>
-          <Text style={styles.addToCartText}>Add to Cart</Text>
+        <TouchableOpacity
+          style={[
+            styles.addToCartBtn,
+            selectedProduct.stock < 1 && { backgroundColor: colors.sage[300] },
+          ]}
+          onPress={selectedProduct.stock > 0 ? handleAddToCart : undefined}
+          disabled={selectedProduct.stock < 1}
+        >
+          <Text
+            style={[
+              styles.addToCartText,
+              selectedProduct.stock < 1 && { color: colors.subText },
+            ]}
+          >
+            {selectedProduct.stock > 0 ? "Add to Cart" : "Out of Stock"}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

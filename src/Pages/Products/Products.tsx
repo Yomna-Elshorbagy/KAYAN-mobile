@@ -137,7 +137,9 @@ export default function Products() {
                   product={item}
                   isWishlisted={isProductWishlisted(item._id)}
                   onPress={() =>
-                    navigation.navigate(ROUTES.PRODUCT_DETAIlS, { id: item._id })
+                    navigation.navigate(ROUTES.PRODUCT_DETAIlS, {
+                      id: item._id,
+                    })
                   }
                   onAddToCart={() => handleAddToCart(item)}
                   onToggleWishlist={() => handleToggleWishlist(item)}

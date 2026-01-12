@@ -6,9 +6,10 @@ import { cartSummaryStyles } from "../../Styles/CartStyles";
 
 interface CartSummaryProps {
   subtotal: number;
+  onCheckout: () => void;
 }
 
-const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ subtotal, onCheckout }) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
 
@@ -23,7 +24,10 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
         { backgroundColor: colors.card, shadowColor: colors.text },
       ]}
     >
-      <SummaryRow label={t("cart.subtotal")} value={`$${subtotal.toFixed(2)}`} />
+      <SummaryRow
+        label={t("cart.subtotal")}
+        value={`$${subtotal.toFixed(2)}`}
+      />
       <SummaryRow label={t("cart.tax")} value={`$${tax.toFixed(2)}`} />
       <SummaryRow label={t("cart.shipping")} value={t("cart.free")} green />
 
@@ -49,6 +53,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({ subtotal }) => {
           { backgroundColor: colors.primary },
         ]}
         activeOpacity={0.8}
+        onPress={onCheckout}
       >
         <Text
           style={[cartSummaryStyles.checkoutText, { color: colors.buttonText }]}

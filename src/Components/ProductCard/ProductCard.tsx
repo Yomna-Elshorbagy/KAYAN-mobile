@@ -17,6 +17,7 @@ interface ProductCardProps {
     discount?: number;
     imageCover: { secure_url: string };
     rate?: number;
+    stock: number;
   };
   onPress?: () => void;
   onAddToCart?: () => void;
@@ -57,6 +58,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </View>
         ) : null}
 
+        {product.stock < 1 ? (
+          <View
+            style={[
+              styles.discountBadge,
+              { backgroundColor: "#E63946", left: 10, right: "auto" },
+            ]}
+          >
+            <Text style={styles.discountText}>Out of Stock</Text>
+          </View>
+        ) : null}
+
         {/* Wishlist */}
         <TouchableOpacity style={styles.wishlistBtn} onPress={onToggleWishlist}>
           <Heart
@@ -91,11 +103,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
           {/* Add to Cart Icon Button */}
           <TouchableOpacity
-            style={styles.cartBtn}
-            onPress={onAddToCart}
-            activeOpacity={0.7}
+            style={[
+              styles.cartBtn,
+              product.stock < 1 && { backgroundColor: colors.sage[300] },
+            ]}
+            onPress={product.stock > 0 ? onAddToCart : undefined}
+            activeOpacity={product.stock > 0 ? 0.7 : 1}
+            disabled={product.stock < 1}
           >
-            <ShoppingCart size={20} color={colors.buttonText} />
+            <ShoppingCart
+              size={20}
+              color={product.stock > 0 ? colors.buttonText : colors.subText}
+            />
           </TouchableOpacity>
         </View>
       </View>

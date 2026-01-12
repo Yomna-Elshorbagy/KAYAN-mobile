@@ -24,7 +24,7 @@ import EmptyCart from "../../Components/Cart/EmptyCart";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
 import { cartStyles } from "../../Styles/CartStyles";
 import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ROUTES } from "../../Constants/routes";
 
 type RootStackParamList = {
   Shop: undefined;
@@ -38,8 +38,7 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const { cart, isLoading } = useAppSelector((state) => state.cart);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -133,7 +132,10 @@ const Cart = () => {
         />
       </View>
 
-      <CartSummary subtotal={cart.totalPrice} />
+      <CartSummary
+        subtotal={cart.totalPrice}
+        onCheckout={() => navigation.navigate(ROUTES.CHECKOUT)}
+      />
     </SafeAreaView>
   );
 };

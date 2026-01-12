@@ -33,6 +33,24 @@ const WishlistCard: React.FC<Props> = ({ product, onRemove, onMoveToCart }) => {
         >
           <Trash2 size={16} color="#E63946" />
         </TouchableOpacity>
+
+        {product.stock < 1 && (
+          <View
+            style={{
+              position: "absolute",
+              bottom: 10,
+              left: 10,
+              backgroundColor: "#E63946",
+              paddingHorizontal: 8,
+              paddingVertical: 4,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 10, fontWeight: "bold" }}>
+              Out of Stock
+            </Text>
+          </View>
+        )}
       </View>
 
       {/* Info */}
@@ -49,14 +67,26 @@ const WishlistCard: React.FC<Props> = ({ product, onRemove, onMoveToCart }) => {
           style={[
             CardStyles.cartBtn,
             {
-              borderColor: colors.primary,
+              borderColor:
+                product.stock > 0 ? colors.primary : colors.sage[300],
+              backgroundColor:
+                product.stock > 0 ? "transparent" : colors.sage[100],
             },
           ]}
-          onPress={onMoveToCart}
+          onPress={product.stock > 0 ? onMoveToCart : undefined}
+          disabled={product.stock < 1}
         >
-          <ShoppingCart size={18} color={colors.primary} />
-          <Text style={[CardStyles.cartText, { color: colors.primary }]}>
-            Move to Cart
+          <ShoppingCart
+            size={18}
+            color={product.stock > 0 ? colors.primary : colors.subText}
+          />
+          <Text
+            style={[
+              CardStyles.cartText,
+              { color: product.stock > 0 ? colors.primary : colors.subText },
+            ]}
+          >
+            {product.stock > 0 ? "Move to Cart" : "Out of Stock"}
           </Text>
         </TouchableOpacity>
       </View>
