@@ -51,3 +51,34 @@ export interface IUpdateUser {
   newPassword?: string;
   confirmPassword?: string;
 }
+
+export interface UserImage {
+  secure_url: string;
+  public_id?: string;
+}
+
+export interface User {
+  _id: string;
+  userName: string;
+  email: string;
+  role: string;
+  gender?: string;
+  mobileNumber?: string;
+  recoveryEmail?: string;
+  image?: UserImage;
+  createdAt?: string;
+}
+
+export interface UsersOverview {
+  totalUsers: number;
+  pendingUsers: number;
+  verifiedUsers: number;
+  blockedUsers: number;
+  deletedUsers: number;
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+}

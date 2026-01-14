@@ -18,6 +18,7 @@ interface AppInputProps {
   secureTextEntry?: boolean;
   icon?: keyof typeof Ionicons.glyphMap;
   keyboardType?: KeyboardTypeOptions;
+  label?: string;
 }
 
 const CustomInput = ({
@@ -27,6 +28,7 @@ const CustomInput = ({
   secureTextEntry,
   icon,
   keyboardType,
+  label,
 }: AppInputProps) => {
   const [show, setShow] = React.useState(false);
   const { colors } = useTheme();
@@ -37,6 +39,18 @@ const CustomInput = ({
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <View style={styles.container}>
+          {label && (
+            <Text
+              style={{
+                color: colors.text,
+                marginBottom: 8,
+                fontSize: 14,
+                fontWeight: "600",
+              }}
+            >
+              {label}
+            </Text>
+          )}
           <View
             style={[
               styles.inputWrapper,
