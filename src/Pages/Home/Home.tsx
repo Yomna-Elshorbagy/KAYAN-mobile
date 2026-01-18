@@ -1,6 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import HomeHeader from "./Components/HomeHeader";
+import HeroSection from "./Components/HeroSection";
+import NewArriaval from "./Components/NewArriaval";
+import CategoriesSection from "./Components/CategoriesSection";
 import StatsSection from "./Components/StatsSection";
 import CraftsmanshipSection from "./Components/CraftsmanshipSection";
 import { useTheme } from "../../Contexts/ThemeContext";
@@ -11,8 +14,17 @@ export default function Home() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       <HomeHeader />
-      <StatsSection />
-      <CraftsmanshipSection />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 30 }}
+      >
+        <HeroSection />
+        <StatsSection />
+        <CategoriesSection />
+
+        <CraftsmanshipSection />
+        <NewArriaval />
+      </ScrollView>
     </View>
   );
 }
