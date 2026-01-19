@@ -15,20 +15,29 @@ export const LanguageToggleButton = () => {
   const { i18n } = useTranslation();
   const { language, setLanguage } = useLanguage();
 
-  const isArabic = language === "ar";
+  const getIndex = (lang: string) => {
+    if (lang === "en") return 0;
+    if (lang === "ar") return 1;
+    if (lang === "de") return 2;
+    return 0;
+  };
 
-  const slider = useSharedValue(isArabic ? 1 : 0);
+  const slider = useSharedValue(getIndex(language));
 
   useEffect(() => {
-    slider.value = withTiming(isArabic ? 1 : 0, { duration: 250 });
-  }, [isArabic]);
+    slider.value = withTiming(getIndex(language), { duration: 250 });
+  }, [language]);
 
   const animatedSlider = useAnimatedStyle(() => ({
-    transform: [{ translateX: slider.value * 42 }],
+    transform: [{ translateX: slider.value * 31.3 }],
   }));
 
   const toggleLang = () => {
-    const newLang = isArabic ? "en" : "ar";
+    let newLang = "en";
+    if (language === "en") newLang = "ar";
+    else if (language === "ar") newLang = "de";
+    else if (language === "de") newLang = "en";
+
     setLanguage(newLang);
     i18n.changeLanguage(newLang);
   };
@@ -55,7 +64,7 @@ export const LanguageToggleButton = () => {
         <Text
           style={[
             LanguageStyles.label,
-            { color: !isArabic ? colors.text : colors.subText },
+            { color: language === "en" ? colors.white : colors.subText },
           ]}
         >
           EN
@@ -64,10 +73,19 @@ export const LanguageToggleButton = () => {
         <Text
           style={[
             LanguageStyles.label,
-            { color: isArabic ? colors.text : colors.subText },
+            { color: language === "ar" ? colors.white : colors.subText },
           ]}
         >
           AR
+        </Text>
+
+        <Text
+          style={[
+            LanguageStyles.label,
+            { color: language === "de" ? colors.white : colors.subText },
+          ]}
+        >
+          DE
         </Text>
       </View>
     </TouchableOpacity>

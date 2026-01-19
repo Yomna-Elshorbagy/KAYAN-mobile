@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import * as Localization from "expo-localization";
 import en from "./Locals/en.json";
 import ar from "./Locals/ar.json";
+import de from "./Locals/de.json";
 
 interface Resources {
   [key: string]: {
@@ -13,6 +14,7 @@ interface Resources {
 const resources: Resources = {
   en: { translation: en },
   ar: { translation: ar },
+  de: { translation: de },
 };
 
 const locales = Localization.getLocales();

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const LanguageStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    width: 84,
+    width: 100,
     height: 34,
     borderRadius: 18,
     borderWidth: 1,
@@ -12,7 +12,7 @@ export const LanguageStyles = StyleSheet.create({
   },
   slider: {
     position: "absolute",
-    width: 38,
+    width: 30,
     height: 28,
     borderRadius: 14,
     left: 3,
