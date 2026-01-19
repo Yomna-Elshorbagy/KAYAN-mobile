@@ -107,5 +107,51 @@
     "saveChanges": "Save Changes",
     "cancel": "Cancel",
     "notAvailable": "N/A"
+  },
+  "home": {
+    "newArrivals": "New Arrivals",
+    "viewAll": "View All",
+    "ourCategories": "Our Categories",
+    "seeAll": "See all ›",
+    "heroTitle": "New Collection",
+    "heroSubtitle": "Discover our latest handcrafted elegance.",
+    "shopNow": "Shop Now"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "locationSelected": "Location Selected on Map",
+    "selectOnMap": "Select on Map (Optional)",
+    "or": "— OR —",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "address": "Address",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "country": "Country",
+    "phone": "Phone",
+    "orderSummary": "Order Summary",
+    "qty": "Qty",
+    "selectedViaMap": "Selected via Map",
+    "continueToPayment": "Continue to Payment",
+    "placeOrder": "Place Order",
+    "goBackToEdit": "Go Back to Edit Address",
+    "orderConfirmed": "Order Confirmed",
+    "thankYou": "Thank You for Your Order!",
+    "orderSuccessDesc": "Your order has been placed successfully. You will receive a confirmation email shortly.",
+    "backToHome": "Back to Home",
+    "orderPlacedSuccess": "Your order has been placed successfully!",
+    "failedToPlaceOrder": "Failed to place order"
+  },
+  "location": {
+    "selectLocation": "Select Location",
+    "mobileOnly": "Map selection is currently available on mobile devices only.",
+    "manualEntry": "Please enter your address manually on the checkout page.",
+    "goBack": "Go Back",
+    "loadingMap": "Loading Map...",
+    "tapToSelect": "Tap on the map to select your delivery point",
+    "confirmLocation": "Confirm Location",
+    "selectedFromMap": "Selected from Map",
+    "permissionDenied": "Permission to access location was denied"
   }
 }

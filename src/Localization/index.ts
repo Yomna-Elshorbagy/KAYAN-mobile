@@ -6,7 +6,7 @@ import ar from "./Locals/ar.json";
 
 interface Resources {
   [key: string]: {
-    translation: typeof en; 
+    translation: typeof en;
   };
 }
 
@@ -30,6 +30,5 @@ i18n.use(initReactI18next).init({
     escapeValue: false,
   },
 });
-
 
 export default i18n;

@@ -89,15 +89,15 @@ export default function Checkout() {
       dispatch(resetCart());
       Toast.show({
         type: "success",
-        text1: "Success",
-        text2: "Your order has been placed successfully!",
+        text1: t("toasts.success"),
+        text2: t("checkout.orderPlacedSuccess"),
       });
       setStep(3);
     } catch (err: any) {
       Toast.show({
         type: "error",
-        text1: "Error",
-        text2: err || "Failed to place order",
+        text1: t("toasts.error"),
+        text2: err || t("checkout.failedToPlaceOrder"),
       });
     }
   };
@@ -143,13 +143,12 @@ export default function Checkout() {
   if (step === 3) {
     return (
       <View style={styles.container}>
-        <SharedHeader title="Order Confirmed" />
+        <SharedHeader title={t("checkout.orderConfirmed")} />
         <View style={styles.successContainer}>
           <Ionicons name="checkmark-circle" size={100} color="#4CAF50" />
-          <Text style={styles.successTitle}>Thank You for Your Order!</Text>
+          <Text style={styles.successTitle}>{t("checkout.thankYou")}</Text>
           <Text style={styles.successDesc}>
-            Your order has been placed successfully. You will receive a
-            confirmation email shortly.
+            {t("checkout.orderSuccessDesc")}
           </Text>
           <TouchableOpacity
             style={[styles.continueButton, { marginTop: 40, width: "100%" }]}
@@ -157,7 +156,7 @@ export default function Checkout() {
               navigation.navigate(ROUTES.BOTTOM_NAV, { screen: ROUTES.HOME })
             }
           >
-            <Text style={styles.continueButtonText}>Back to Home</Text>
+            <Text style={styles.continueButtonText}>{t("checkout.backToHome")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -176,7 +175,7 @@ export default function Checkout() {
           initialLocation={selectedLocation}
         />
       )}
-      <SharedHeader title="Checkout" />
+      <SharedHeader title={t("checkout.title")} />
       {renderStepper()}
 
       <ScrollView
@@ -192,7 +191,7 @@ export default function Checkout() {
                 color="#D1A03F"
                 style={styles.sectionIcon}
               />
-              <Text style={styles.sectionTitle}>Shipping Address</Text>
+              <Text style={styles.sectionTitle}>{t("checkout.shippingAddress")}</Text>
             </View>
 
             <TouchableOpacity
@@ -222,8 +221,8 @@ export default function Checkout() {
                   ]}
                 >
                   {selectedLocation
-                    ? "Location Selected on Map"
-                    : "Select on Map (Optional)"}
+                    ? t("checkout.locationSelected")
+                    : t("checkout.selectOnMap")}
                 </Text>
                 {selectedLocation?.description && (
                   <Text style={styles.addressLine} numberOfLines={1}>
@@ -252,7 +251,7 @@ export default function Checkout() {
                   color: colors.subText,
                 }}
               >
-                — OR —
+                {t("checkout.or")}
               </Text>
             )}
 
@@ -261,14 +260,14 @@ export default function Checkout() {
                 <CustomInput
                   name="firstName"
                   control={control}
-                  placeholder="First Name"
+                  placeholder={t("checkout.firstName")}
                 />
               </View>
               <View style={styles.halfInput}>
                 <CustomInput
                   name="lastName"
                   control={control}
-                  placeholder="Last Name"
+                  placeholder={t("checkout.lastName")}
                 />
               </View>
             </View>
@@ -278,7 +277,7 @@ export default function Checkout() {
                 <CustomInput
                   name="address"
                   control={control}
-                  placeholder="Address"
+                  placeholder={t("checkout.address")}
                 />
 
                 <View style={styles.row}>
@@ -286,14 +285,14 @@ export default function Checkout() {
                     <CustomInput
                       name="city"
                       control={control}
-                      placeholder="City"
+                      placeholder={t("checkout.city")}
                     />
                   </View>
                   <View style={styles.halfInput}>
                     <CustomInput
                       name="postalCode"
                       control={control}
-                      placeholder="Postal Code"
+                      placeholder={t("checkout.postalCode")}
                     />
                   </View>
                 </View>
@@ -301,20 +300,20 @@ export default function Checkout() {
                 <CustomInput
                   name="country"
                   control={control}
-                  placeholder="Country"
+                  placeholder={t("checkout.country")}
                 />
               </>
             )}
             <CustomInput
               name="phone"
               control={control}
-              placeholder="Phone"
+              placeholder={t("checkout.phone")}
               keyboardType="phone-pad"
             />
           </View>
         ) : (
           <View>
-            <Text style={styles.summaryTitle}>Order Summary</Text>
+            <Text style={styles.summaryTitle}>{t("checkout.orderSummary")}</Text>
 
             {/* Products Card */}
             <View style={styles.summaryCard}>
@@ -327,7 +326,7 @@ export default function Checkout() {
                   />
                   <View style={styles.itemDetails}>
                     <Text style={styles.itemName}>{item.productId?.title}</Text>
-                    <Text style={styles.itemQty}>Qty: {item.quantity}</Text>
+                    <Text style={styles.itemQty}>{t("checkout.qty")}: {item.quantity}</Text>
                     <Text style={styles.itemPrice}>${item.price}</Text>
                   </View>
                 </View>
@@ -336,14 +335,14 @@ export default function Checkout() {
 
             {/* Address Review Card */}
             <View style={styles.summaryCard}>
-              <Text style={styles.summaryTitle}>Shipping Address</Text>
+              <Text style={styles.summaryTitle}>{t("checkout.shippingAddress")}</Text>
               <View style={styles.addressDetails}>
                 <Text style={styles.itemName}>
                   {getValues().firstName} {getValues().lastName}
                 </Text>
                 {selectedLocation ? (
                   <Text style={styles.addressLine}>
-                    Selected via Map: {selectedLocation.description}
+                    {t("checkout.selectedViaMap")}: {selectedLocation.description}
                   </Text>
                 ) : (
                   <>
@@ -364,15 +363,15 @@ export default function Checkout() {
             {/* Price Breakdown */}
             <View style={styles.breakdownContainer}>
               <View style={styles.breakdownRow}>
-                <Text style={styles.breakdownLabel}>Subtotal</Text>
+                <Text style={styles.breakdownLabel}>{t("cart.subtotal")}</Text>
                 <Text style={styles.breakdownValue}>
                   ${subtotal.toFixed(2)}
                 </Text>
               </View>
               <View style={styles.breakdownRow}>
-                <Text style={styles.breakdownLabel}>Shipping</Text>
+                <Text style={styles.breakdownLabel}>{t("cart.shipping")}</Text>
                 <Text style={[styles.breakdownValue, styles.freeShipping]}>
-                  Free Shipping
+                  {t("cart.free")}
                 </Text>
               </View>
               <View style={styles.breakdownRow}>
@@ -380,7 +379,7 @@ export default function Checkout() {
                 <Text style={styles.breakdownValue}>${tax.toFixed(2)}</Text>
               </View>
               <View style={[styles.breakdownRow, styles.totalRow]}>
-                <Text style={styles.totalLabel}>Total</Text>
+                <Text style={styles.totalLabel}>{t("cart.totalPrice")}</Text>
                 <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
               </View>
             </View>
@@ -394,7 +393,7 @@ export default function Checkout() {
           onPress={step === 1 ? handleSubmit(onStep1Submit) : onPlaceOrder}
         >
           <Text style={styles.continueButtonText}>
-            {step === 1 ? "Continue to Payment" : "Place Order"}
+            {step === 1 ? t("checkout.continueToPayment") : t("checkout.placeOrder")}
           </Text>
         </TouchableOpacity>
 
@@ -404,7 +403,7 @@ export default function Checkout() {
             onPress={() => setStep(1)}
           >
             <Text style={{ color: colors.subText }}>
-              Go Back to Edit Address
+              {t("checkout.goBackToEdit")}
             </Text>
           </TouchableOpacity>
         )}

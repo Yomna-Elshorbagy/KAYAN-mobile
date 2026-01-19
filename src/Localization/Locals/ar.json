@@ -107,5 +107,51 @@
     "saveChanges": "حفظ التغييرات",
     "cancel": "إلغاء",
     "notAvailable": "غير متوفر"
+  },
+  "home": {
+    "newArrivals": "وصلنا حديثاً",
+    "viewAll": "عرض الكل",
+    "ourCategories": "أقسامنا",
+    "seeAll": "عرض الكل ›",
+    "heroTitle": "مجموعة جديدة",
+    "heroSubtitle": "اكتشف أحدث قطعنا الأنيقة المصنوعة يدوياً.",
+    "shopNow": "تسوق الآن"
+  },
+  "checkout": {
+    "title": "الدفع",
+    "shippingAddress": "عنوان الشحن",
+    "locationSelected": "تم اختيار الموقع على الخريطة",
+    "selectOnMap": "اختر من الخريطة (اختياري)",
+    "or": "— أو —",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "address": "العنوان",
+    "city": "المدينة",
+    "postalCode": "الرمز البريدي",
+    "country": "الدولة",
+    "phone": "رقم الهاتف",
+    "orderSummary": "ملخص الطلب",
+    "qty": "الكمية",
+    "selectedViaMap": "تم الاختيار عبر الخريطة",
+    "continueToPayment": "المتابعة للدفع",
+    "placeOrder": "إتمام الطلب",
+    "goBackToEdit": "الرجوع لتعديل العنوان",
+    "orderConfirmed": "تم تأكيد الطلب",
+    "thankYou": "شكراً لطلبك!",
+    "orderSuccessDesc": "تم تقديم طلبك بنجاح. ستتلقى رسالة تأكيد بالبريد الإلكتروني قريباً.",
+    "backToHome": "العودة للرئيسية",
+    "orderPlacedSuccess": "تم تقديم طلبك بنجاح!",
+    "failedToPlaceOrder": "فشل تقديم الطلب"
+  },
+  "location": {
+    "selectLocation": "اختر الموقع",
+    "mobileOnly": "اختيار الموقع عبر الخريطة متاح فقط على أجهزة الجوال.",
+    "manualEntry": "يرجى إدخال عنوانك يدوياً في صفحة الدفع.",
+    "goBack": "الرجوع",
+    "loadingMap": "جاري تحميل الخريطة...",
+    "tapToSelect": "اضغط على الخريطة لاختيار نقطة التوصيل",
+    "confirmLocation": "تأكيد الموقع",
+    "selectedFromMap": "تم الاختيار من الخريطة",
+    "permissionDenied": "تم رفض الإذن بالوصول إلى الموقع"
   }
 }

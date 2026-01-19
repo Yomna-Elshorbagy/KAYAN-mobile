@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Alert,
-  Platform,
-} from "react-native";
+import { View, Text, ScrollView, Alert, Platform } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import { useForm } from "react-hook-form";
@@ -130,7 +124,8 @@ export default function Profile() {
       const formData = new FormData();
       if (data.userName) formData.append("userName", data.userName);
       if (data.mobileNumber) formData.append("mobileNumber", data.mobileNumber);
-      if (data.recoveryEmail) formData.append("recoveryEmail", data.recoveryEmail);
+      if (data.recoveryEmail)
+        formData.append("recoveryEmail", data.recoveryEmail);
       if (data.gender) formData.append("gender", data.gender);
 
       if (data.newPassword) {

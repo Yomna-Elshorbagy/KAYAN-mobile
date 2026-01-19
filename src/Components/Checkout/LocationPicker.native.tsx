@@ -5,6 +5,7 @@ import * as Location from "expo-location";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "../../Contexts/ThemeContext";
 import { locationStylesNative } from "../../Styles/LocationStyles";
+import { useTranslation } from "react-i18next";
 
 //===> props
 interface LocationPickerProps {
@@ -25,6 +26,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
   initialLocation,
 }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   //==> here from location start
   const [region, setRegion] = useState<Region>({
     latitude: initialLocation?.latitude || 30.0444, // default to Cairo
@@ -46,7 +48,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         //==> if user refused
-        setErrorMsg("Permission to access location was denied");
+        setErrorMsg(t("location.permissionDenied"));
         setLoading(false);
         return;
       }
@@ -81,7 +83,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
 
   const handleConfirm = async () => {
     if (selectedPoint) {
-      let description = "Selected from Map";
+      let description = t("location.selectedFromMap");
       try {
         // => convert code to string address be readable
         const reverseGeocode = await Location.reverseGeocodeAsync(
@@ -106,7 +108,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
       <View style={locationStylesNative.loadingContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
         <Text style={{ marginTop: 10, color: colors.subText }}>
-          Loading Map...
+          {t("location.loadingMap")}
         </Text>
       </View>
     );
@@ -122,7 +124,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[locationStylesNative.title, { color: colors.text }]}>
-          Select Location
+          {t("location.selectLocation")}
         </Text>
       </View>
 
@@ -142,7 +144,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
         ]}
       >
         <Text style={[locationStylesNative.hint, { color: colors.subText }]}>
-          Tap on the map to select your delivery point
+          {t("location.tapToSelect")}
         </Text>
         <TouchableOpacity
           style={[
@@ -156,7 +158,9 @@ const LocationPicker: React.FC<LocationPickerProps> = ({
           disabled={!selectedPoint}
           onPress={handleConfirm}
         >
-          <Text style={locationStylesNative.confirmText}>Confirm Location</Text>
+          <Text style={locationStylesNative.confirmText}>
+            {t("location.confirmLocation")}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

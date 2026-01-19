@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useTheme } from "../../../Contexts/ThemeContext";
 import { HomeStyles } from "../../../Styles/HomeStyles";
 import ProductCard from "../../../Components/ProductCard/ProductCard";
@@ -9,7 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 import { ROUTES } from "../../../Constants/routes";
 import { useTranslation } from "react-i18next";
 import { addCartItem } from "../../../Redux/Slices/cartSlice";
-import { addWishlistItem, removeWishlistItem } from "../../../Redux/Slices/wishlistSlice";
+import {
+  addWishlistItem,
+  removeWishlistItem,
+} from "../../../Redux/Slices/wishlistSlice";
 import Toast from "react-native-toast-message";
 
 export default function NewArriaval() {
@@ -17,7 +26,9 @@ export default function NewArriaval() {
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const dispatch = useAppDispatch();
-  const { trending: products, loading } = useAppSelector((state) => state.products);
+  const { trending: products, loading } = useAppSelector(
+    (state) => state.products
+  );
   const wishlist = useAppSelector((state) => state.wishlist.items);
 
   useEffect(() => {
@@ -74,11 +85,11 @@ export default function NewArriaval() {
     <View style={HomeStyles.sectionContainer}>
       <View style={HomeStyles.sectionHeader}>
         <Text style={[HomeStyles.sectionTitle, { color: colors.text }]}>
-          New Arrivals
+          {t("home.newArrivals")}
         </Text>
         <TouchableOpacity onPress={handleViewAll}>
           <Text style={[HomeStyles.viewAllText, { color: colors.primary }]}>
-            View All
+            {t("home.viewAll")}
           </Text>
         </TouchableOpacity>
       </View>

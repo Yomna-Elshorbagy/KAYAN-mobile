@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "../../Contexts/ThemeContext";
 import { locationStylesWeb } from "../../Styles/LocationStyles";
+import { useTranslation } from "react-i18next";
 
 interface LocationPickerProps {
   onConfirm: (location: {
@@ -20,6 +21,7 @@ interface LocationPickerProps {
  */
 const LocationPicker: React.FC<LocationPickerProps> = ({ onCancel }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <View style={locationStylesWeb.container}>
@@ -28,17 +30,17 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onCancel }) => {
           <Ionicons name="arrow-back" size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={[locationStylesWeb.title, { color: colors.text }]}>
-          Select Location
+          {t("location.selectLocation")}
         </Text>
       </View>
 
       <View style={locationStylesWeb.content}>
         <Ionicons name="map-outline" size={64} color={colors.subText} />
         <Text style={[locationStylesWeb.message, { color: colors.text }]}>
-          Map selection is currently available on mobile devices only.
+          {t("location.mobileOnly")}
         </Text>
         <Text style={[locationStylesWeb.subMessage, { color: colors.subText }]}>
-          Please enter your address manually on the checkout page.
+          {t("location.manualEntry")}
         </Text>
         <TouchableOpacity
           style={[
@@ -47,7 +49,9 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ onCancel }) => {
           ]}
           onPress={onCancel}
         >
-          <Text style={locationStylesWeb.closeText}>Go Back</Text>
+          <Text style={locationStylesWeb.closeText}>
+            {t("location.goBack")}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

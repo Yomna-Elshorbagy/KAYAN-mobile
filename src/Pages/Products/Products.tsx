@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import SharedHeader from "../../Components/SharedHeader/SharedHeader";
 import ProductCard from "../../Components/ProductCard/ProductCard";
+import AccessorySkeleton from "../../Components/ProductSkeleton/AccessorySkeleton";
+import Pagination from "../../Shared/Pagination";
 import { useTheme } from "../../Contexts/ThemeContext";
 import CustomInput from "../../Shared/CustomInput";
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
@@ -30,6 +32,8 @@ export default function Products() {
   } = useAppSelector((state) => state.products);
 
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   const { control, watch } = useForm({
     defaultValues: {
@@ -48,6 +52,10 @@ export default function Products() {
   }, [searchValue]);
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
+
+  useEffect(() => {
     dispatch(fetchProducts({ page: 1, size: 50 }));
   }, [dispatch]);
 
@@ -60,6 +68,13 @@ export default function Products() {
         item.title?.toLowerCase().includes(lowerSearch)
     );
   }, [reduxProducts, debouncedSearch]);
+
+  const paginatedProducts = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredProducts, currentPage]);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   // ===> handle add to wishlist
   const wishlist = useAppSelector((state) => state.wishlist.items);
@@ -107,8 +122,19 @@ export default function Products() {
       </View>
 
       {loading ? (
-        <View style={styles.centerContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
+        <View style={styles.list}>
+          <View style={styles.row}>
+            <AccessorySkeleton />
+            <AccessorySkeleton />
+          </View>
+          <View style={styles.row}>
+            <AccessorySkeleton />
+            <AccessorySkeleton />
+          </View>
+          <View style={styles.row}>
+            <AccessorySkeleton />
+            <AccessorySkeleton />
+          </View>
         </View>
       ) : error ? (
         <View style={styles.centerContainer}>
@@ -126,10 +152,10 @@ export default function Products() {
         <View style={{ flex: 1 }}>
           <FlatList
             key={filteredProducts.length === 1 ? "one-column" : "two-columns"}
-            data={filteredProducts}
-            numColumns={filteredProducts.length === 1 ? 1 : 2}
+            data={paginatedProducts}
+            numColumns={2}
             keyExtractor={(item) => item._id}
-            columnWrapperStyle={filteredProducts.length > 1 ? styles.row : null}
+            columnWrapperStyle={paginatedProducts.length > 1 ? styles.row : null}
             contentContainerStyle={styles.list}
             renderItem={({ item }) => (
               <View style={styles.cardContainer}>
@@ -147,6 +173,13 @@ export default function Products() {
               </View>
             )}
             showsVerticalScrollIndicator={false}
+            ListFooterComponent={
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            }
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
                 <Text style={{ color: colors.subText }}>
